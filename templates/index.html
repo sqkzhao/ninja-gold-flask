@@ -14,11 +14,12 @@
   />
   <body>
     <div class="container">
-      <div class="row">
-        <h3>Your Gold: {{gold}}   Total Move: {{session['move']}}</h3>
+      <div class="row py-4">
+        <h3 class="col col-md-3">Your Gold: {{gold}}</h3>
+        <h3 class="col col-md-3">Total Move: {{session['move']}}</h3>
         {% if session['end_game'] %}
         <form action="/reset" method="POST" class="reset">
-          <input type="submit" name="submit" value="Reset" />
+          <input type="submit" name="submit" value="Reset" class="btn btn-outline-secondary"/>
         </form>
         {% endif %}
       </div>
@@ -30,7 +31,7 @@
                 <p>(earns 10-20 gold)</p>
                 <form action="/process_money" method="POST">
                   <input type="hidden" name="action" value="farm" />
-                  <input type="submit" name="submit" value="Find Gold!" />
+                  <input type="submit" name="submit" value="Find Gold!" class="btn btn-outline-secondary"/>
                 </form>
             </div>
           </div>
@@ -42,7 +43,7 @@
                 <p>(earns 5-10 gold)</p>
                 <form action="/process_money" method="POST">
                   <input type="hidden" name="action" value="cave" />
-                  <input type="submit" name="submit" value="Find Gold!" />
+                  <input type="submit" name="submit" value="Find Gold!" class="btn btn-outline-secondary"/>
                 </form>
             </div>
           </div>
@@ -54,7 +55,7 @@
                 <p>(earns 2-5 gold)</p>
                 <form action="/process_money" method="POST">
                   <input type="hidden" name="action" value="house" />
-                  <input type="submit" name="submit" value="Find Gold!" />
+                  <input type="submit" name="submit" value="Find Gold!" class="btn btn-outline-secondary"/>
                 </form>
             </div>
           </div>
@@ -66,29 +67,33 @@
                 <p>(earns/takes 0-50 gold)</p>
                 <form action="/process_money" method="POST">
                   <input type="hidden" name="action" value="casino" />
-                  <input type="submit" name="submit" value="Find Gold!" />
+                  <input type="submit" name="submit" value="Find Gold!" class="btn btn-outline-secondary"/>
                 </form>
             </div>
           </div>
         </div>
       </div>
       <div class="row">
-        <h3>Activities:</h3>
+        <h3 class="col py-4">Activities:</h3>
       </div>
       <div class="row">
-        <div class="activities">
-          {% if activities %}
-          <ul>
-            {% for activity in activities %}
-              {% if '..' in activity %}
-                <li style="color: red;">{{activity}}</li>
+        <div class="activities col-md-12">
+          <div class="card">
+            <div class="card-body">
+              {% if activities %}
+              <ul>
+                {% for activity in activities %}
+                  {% if '..' in activity %}
+                    <li style="color: red;">{{activity}}</li>
+                  {% endif %}
+                  {% if '!' in activity %}
+                    <li style="color: green;">{{activity}}</li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
               {% endif %}
-              {% if '!' in activity %}
-                <li style="color: green;">{{activity}}</li>
-              {% endif %}
-            {% endfor %}
-          </ul>
-          {% endif %}
+            </div>
+          </div>
         </div>
       </div>
     </div>
